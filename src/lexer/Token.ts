@@ -1,13 +1,26 @@
-enum TokenType {
+export enum TokenType {
   KEYWORD,
   VARIABLE,
   OPERATOR,
   BRACKET,
   STIRNG,
   BOOLEAN,
-  INTEGER,
-  FLOAT,
+  NUMBER,
 }
+export enum TokenKeyWord {
+  LET = "let",
+  IF = "if",
+  ELSE = "else",
+  FOR = "for",
+  WHILE = "while",
+  BREAK = "break",
+  FUNCTION = "function",
+  RETURN = "return",
+  NUMBER = "number",
+  BOOLEAN = "boolean",
+  STRING = "string",
+}
+
 export default class Token {
   private type: TokenType;
   private value: string;
@@ -25,9 +38,8 @@ export default class Token {
   isValueType() {
     return (
       this.type === TokenType.BOOLEAN ||
-      this.type === TokenType.INTEGER ||
-      this.type === TokenType.STIRNG ||
-      this.type === TokenType.FLOAT
+      this.type === TokenType.NUMBER ||
+      this.type === TokenType.STIRNG
     );
   }
 
