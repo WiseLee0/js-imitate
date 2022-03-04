@@ -1,9 +1,11 @@
+import PeekIterator from "../utils/PeekIterator";
+
 export enum TokenType {
   KEYWORD,
   VARIABLE,
   OPERATOR,
   BRACKET,
-  STIRNG,
+  STRING,
   BOOLEAN,
   NUMBER,
 }
@@ -39,7 +41,7 @@ export default class Token {
     return (
       this.type === TokenType.BOOLEAN ||
       this.type === TokenType.NUMBER ||
-      this.type === TokenType.STIRNG
+      this.type === TokenType.STRING
     );
   }
 
