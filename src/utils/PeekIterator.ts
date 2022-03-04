@@ -3,6 +3,7 @@ export default class PeekIterator {
   private stack: any[] = [];
   private cache: any[] = [];
   private endToken?: string;
+  private cacheSize = 10;
   constructor(it: Generator, endToken?: string) {
     this.it = it;
     this.endToken = endToken;
@@ -35,7 +36,3 @@ export default class PeekIterator {
     return this.endToken || !!this.peek();
   }
 }
-
-// 1 2 3 4 5 6
-// 1 2
-// 4 3

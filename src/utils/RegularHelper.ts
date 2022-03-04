@@ -1,5 +1,5 @@
 export default class RegularHelper {
-  static isNumer(str: string) {
+  static isNumber(str: string) {
     return /^\d$/.test(str);
   }
   static isOperator(str: string) {

@@ -19,7 +19,7 @@ describe("RegularHelper", () => {
     assert.equal(true, RegularHelper.isOperator("&"));
     assert.equal(true, RegularHelper.isOperator("="));
 
-    assert.equal(true, RegularHelper.isNumer("2"));
-    assert.equal(false, RegularHelper.isNumer("q"));
+    assert.equal(true, RegularHelper.isNumber("2"));
+    assert.equal(false, RegularHelper.isNumber("q"));
   });
 });
