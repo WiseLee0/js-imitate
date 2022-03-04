@@ -1,6 +1,6 @@
 export default class PeekIterator {
   private it: Generator;
-  private stack: any[] = [];
+  private queue: any[] = [];
   private cache: any[] = [];
   private endToken?: string;
   private cacheSize = 10;
@@ -11,14 +11,17 @@ export default class PeekIterator {
   next() {
     if (this.cache.length) {
       const val = this.cache.pop();
-      this.stack.push(val);
+      this.queue.push(val);
       return val;
     }
     let val = this.it.next().value;
     if (val === undefined) {
       val = this.endToken;
     }
-    this.stack.push(val);
+    while (this.queue.length >= this.cacheSize) {
+      this.queue.shift();
+    }
+    this.queue.push(val);
     return val;
   }
   peek() {
@@ -27,8 +30,8 @@ export default class PeekIterator {
     return val;
   }
   putBack() {
-    if (this.stack.length) {
-      const val = this.stack.pop();
+    if (this.queue.length) {
+      const val = this.queue.pop();
       this.cache.push(val);
     }
   }
