@@ -3,7 +3,7 @@ export default class RegularHelper {
     return /^\d$/.test(str);
   }
   static isOperator(str: string) {
-    return /^[+\-*/><=!&|^%,]$/.test(str);
+    return /^[+\-*/><=!&|^%,;]$/.test(str);
   }
   static isWord(str: string) {
     return /^[a-zA-Z]$/.test(str);

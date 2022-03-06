@@ -8,7 +8,6 @@ const assertToken = (
   type: Token["type"]
 ) => {
   console.log(token.getValue());
-
   assert.equal(token.getType(), type);
   assert.equal(token.getValue(), value);
 };
@@ -20,6 +19,7 @@ describe("Token", () => {
       [".4211 + 2", ".4211"],
       [".5555+2", ".5555"],
       ["123.123-12312", "123.123"],
+      ["100.12-1", "100.12"],
       ["-100-2132", "-100"],
       ["-123124.123*123123", "-123124.123"],
       ["012-3123", "012"],
