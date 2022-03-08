@@ -1,4 +1,5 @@
 import Token, { TokenType } from "../../lexer/Token";
+import Exception from "../../utils/Exception";
 import { TokenIterator } from "../../utils/TokenIterator";
 import ASTNode, { ASTNodeType } from "./ASTNode";
 
@@ -9,7 +10,7 @@ export default class Factor extends ASTNode {
     this.describe = it.getValue();
   }
 
-  parse(it: TokenIterator): Variable | Calculate | undefined {
+  static parse(it: TokenIterator): Variable | Calculate {
     const token = it.peek();
     if (token.getType() === TokenType.VARIABLE) {
       it.next();
@@ -19,6 +20,11 @@ export default class Factor extends ASTNode {
       it.next();
       return new Calculate(token);
     }
+    throw new Error(
+      `Factor parse error,type:${(token as Token)?.getType()},value:${(
+        token as Token
+      )?.getValue()}`
+    );
   }
 }
 export class Variable extends Factor {

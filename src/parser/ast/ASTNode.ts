@@ -28,17 +28,29 @@ export default class ASTNode {
     this.describe = describe;
   }
 
+  setType(type: ASTNode["type"]) {
+    this.type = type;
+  }
   getType() {
     return this.type;
+  }
+  addChildren(item: ASTNode["children"][number]) {
+    this.children.push(item);
   }
   getChildren() {
     return this.children;
   }
-  getChildrenIndex(index: number) {
+  getChildrenIdx(index: number) {
     return this.children[index];
+  }
+  setLexeme(lexeme: ASTNode["lexeme"]) {
+    this.lexeme = lexeme;
   }
   getLexeme() {
     return this.lexeme;
+  }
+  setDescribe(describe: ASTNode["describe"]) {
+    this.describe = describe;
   }
   getDescribe() {
     return this.describe;
