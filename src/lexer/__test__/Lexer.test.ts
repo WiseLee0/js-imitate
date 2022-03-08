@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import GeneratorUtils from "../../utils/GenerateUtils";
-import Lexer from "../lexer";
+import Lexer from "../Lexer";
 import Token, { TokenType } from "../Token";
 
 const assertToken = (

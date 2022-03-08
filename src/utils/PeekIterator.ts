@@ -1,14 +1,14 @@
-export default class PeekIterator {
+export default class PeekIterator<T = string> {
   private it: Generator;
-  private queue: any[] = [];
+  private queue: T[] = [];
   private cache: any[] = [];
   private endToken?: string;
   private cacheSize = 10;
-  constructor(it: Generator, endToken?: string) {
+  constructor(it: Generator<T>, endToken?: string) {
     this.it = it;
     this.endToken = endToken;
   }
-  next() {
+  next(): T {
     if (this.cache.length) {
       const val = this.cache.pop();
       this.queue.push(val);
@@ -24,7 +24,7 @@ export default class PeekIterator {
     this.queue.push(val);
     return val;
   }
-  peek() {
+  peek(): T {
     const val = this.next();
     this.putBack();
     return val;
@@ -35,7 +35,7 @@ export default class PeekIterator {
       this.cache.push(val);
     }
   }
-  hasNext() {
-    return this.endToken || !!this.peek();
+  hasNext(): boolean {
+    return Boolean(this.endToken) || !!this.peek();
   }
 }

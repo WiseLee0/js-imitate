@@ -4,7 +4,7 @@ import RegularHelper from "../utils/RegularHelper";
 import Token, { TokenType } from "./Token";
 
 export default class Lexer {
-  static run(sourceIt: Generator) {
+  static run(sourceIt: Generator<string>) {
     const END = "\0";
     const it = new PeekIterator(sourceIt, END);
     const tokens: Token[] = [];
@@ -73,7 +73,7 @@ export default class Lexer {
           continue;
         }
       }
-      
+
       if (RegularHelper.isOperator(cur)) {
         it.putBack();
         tokens.push(Token.matchOperate(it)!);
