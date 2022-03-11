@@ -10,7 +10,7 @@ export default class AddExprDemo {
     const expr = new Expr();
     if (it.twinTypeMatch(TokenType.NUMBER, TokenType.OPERATOR)) {
       // left
-      const factor = Factor.parse(it);
+      const factor = Factor.parse(it)!;
       expr.addChildren(factor);
       // center
       const cur = it.peek();
@@ -18,9 +18,9 @@ export default class AddExprDemo {
       expr.setDescribe(cur.getValue());
       it.next();
       // right
-      expr.addChildren(AddExprDemo.parse(it));
+      expr.addChildren(AddExprDemo.parse(it)!);
     } else {
-      const factor = Factor.parse(it);
+      const factor = Factor.parse(it)!;
       return factor;
     }
     return expr;

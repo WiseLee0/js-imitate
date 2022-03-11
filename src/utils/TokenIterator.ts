@@ -1,4 +1,5 @@
 import Token, { TokenType } from "../lexer/Token";
+import Exception from "./Exception";
 import PeekIterator from "./PeekIterator";
 
 export class TokenIterator extends PeekIterator<Token> {
@@ -14,5 +15,11 @@ export class TokenIterator extends PeekIterator<Token> {
     }
     this.putBack();
     return false;
+  }
+  consume(value: string) {
+    const currentToken = this.next();
+    if (currentToken.getValue() !== value) {
+      Exception.tokenCharacter(value);
+    }
   }
 }
