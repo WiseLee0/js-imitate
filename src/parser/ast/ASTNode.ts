@@ -1,7 +1,7 @@
 import Token from "../../lexer/Token";
 
 export enum ASTNodeType {
-  BLOCK,
+  BLOCK_STMT,
   BINARY_EXPR, // 1+1
   UNARY_EXPR, // ++i
   CALL_EXPR,
@@ -14,6 +14,7 @@ export enum ASTNodeType {
   ASSIGN_STMT,
   FUNCTION_STMT,
   DECLARE_STMT,
+  FUNCTION_ARGS
 }
 
 export default class ASTNode {

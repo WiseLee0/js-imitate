@@ -21,5 +21,6 @@ export class TokenIterator extends PeekIterator<Token> {
     if (currentToken.getValue() !== value) {
       Exception.tokenCharacter(value);
     }
+    return currentToken;
   }
 }
