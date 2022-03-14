@@ -14,7 +14,8 @@ export enum ASTNodeType {
   ASSIGN_STMT,
   FUNCTION_STMT,
   DECLARE_STMT,
-  FUNCTION_ARGS
+  FUNCTION_ARGS,
+  PROGRAM
 }
 
 export default class ASTNode {

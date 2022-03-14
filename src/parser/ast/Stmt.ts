@@ -1,16 +1,35 @@
 import { TokenIterator } from "../../utils/TokenIterator";
-import AssignStmt from "./AssignStmt";
 import ASTNode from "./ASTNode";
-import BlockStmt from "./BlockStmt";
-import DeclareStmt from "./DeclareStmt";
 import Expr from "./Expr";
-import FunctionStmt from "./FunctionStmt";
-import IfStmt from "./IfStmt";
-import ReturnStmt from "./ReturnStmt";
 
+const runTimeExport = () => {
+  const AssignStmt = require("./AssignStmt");
+  const FunctionStmt = require("./FunctionStmt");
+  const ReturnStmt = require("./ReturnStmt");
+  const BlockStmt = require("./BlockStmt");
+  const DeclareStmt = require("./DeclareStmt");
+  const ForStmt = require("./ForStmt");
+  const IfStmt = require("./IfStmt");
+  return {
+    AssignStmt,
+    FunctionStmt,
+    ReturnStmt,
+    IfStmt,
+    BlockStmt,
+    ForStmt,
+    DeclareStmt,
+  };
+};
 export default class Stmt extends ASTNode {
   static parse(it: TokenIterator) {
-    const stmt = new Stmt();
+    const {
+      AssignStmt,
+      FunctionStmt,
+      ReturnStmt,
+      BlockStmt,
+      DeclareStmt,
+      IfStmt,
+    } = runTimeExport();
     if (!it.hasNext()) {
       return undefined;
     }

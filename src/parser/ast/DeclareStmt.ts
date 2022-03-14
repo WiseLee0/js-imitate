@@ -29,3 +29,5 @@ export default class DeclareStmt extends Stmt {
     return declareStmt;
   }
 }
+
+module.exports = DeclareStmt;

@@ -13,6 +13,10 @@ export default class FunctionArgs extends ASTNode {
       it.consume(",");
       functionArgs.addChildren(factor);
     }
+    if (factor) {
+      functionArgs.addChildren(factor);
+    }
     return functionArgs;
   }
 }
+module.exports = FunctionArgs;

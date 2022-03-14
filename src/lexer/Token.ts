@@ -138,6 +138,8 @@ export default class Token {
           if (RegularHelper.isKeyVar(char)) state = 1;
           else if (tokenKeyWord.has(ans)) {
             return new Token(TokenType.KEYWORD, ans);
+          } else if (ans === "true" || ans === "false") {
+            return new Token(TokenType.BOOLEAN, ans);
           } else {
             return new Token(TokenType.VARIABLE, ans);
           }

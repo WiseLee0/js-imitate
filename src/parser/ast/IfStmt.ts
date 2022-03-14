@@ -49,3 +49,4 @@ export default class IfStmt extends Stmt {
     return undefined;
   }
 }
+module.exports = IfStmt;

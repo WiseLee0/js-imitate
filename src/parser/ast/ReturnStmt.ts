@@ -11,3 +11,4 @@ export default class ReturnStmt extends ASTNode {
     return returnStmt;
   }
 }
+module.exports = ReturnStmt;

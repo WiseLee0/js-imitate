@@ -28,3 +28,5 @@ export default class AssignStmt extends Stmt {
     return assignStmt;
   }
 }
+
+module.exports = AssignStmt;

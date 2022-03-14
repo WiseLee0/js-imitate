@@ -10,10 +10,11 @@ export default class BlockStmt extends Stmt {
     const blockStmt = new BlockStmt();
     let stmt: any;
     it.consume("{");
-    while (Boolean((stmt = Stmt.parse(it)))) {
+    while (it.peek().getValue() !== "}" && Boolean((stmt = Stmt.parse(it)))) {
       blockStmt.addChildren(stmt);
     }
     it.consume("}");
     return blockStmt;
   }
 }
+module.exports = BlockStmt;

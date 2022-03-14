@@ -15,7 +15,7 @@ export default class Factor extends ASTNode {
       it.next();
       return new Variable(token);
     }
-    if (token.getType() === TokenType.NUMBER) {
+    if (token.isValueType()) {
       it.next();
       return new Calculate(token);
     }

@@ -10,7 +10,7 @@ export default class FunctionStmt extends Stmt {
     super(ASTNodeType.FUNCTION_STMT, "function_stmt");
   }
   // function fn(...args) block
-  parse(it: TokenIterator) {
+  static parse(it: TokenIterator) {
     const functionStmt = new FunctionStmt();
     it.consume("function");
     const name = Factor.parse(it);
@@ -26,3 +26,4 @@ export default class FunctionStmt extends Stmt {
     return functionStmt;
   }
 }
+module.exports = FunctionStmt;
