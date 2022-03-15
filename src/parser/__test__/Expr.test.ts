@@ -20,6 +20,7 @@ describe("Expression", () => {
     assert.equal(exprPostfix("1+2+3*4/5"), "1 2 3 4 5 / * + +");
     assert.equal(exprPostfix("1+2*3"), "1 2 3 * +");
     assert.equal(exprPostfix("1*2+3"), "1 2 * 3 +");
+    assert.equal(exprPostfix("a===b"), "a b ===");
   });
   it("complex", () => {
     assert.equal(exprPostfix("1 * (2 + 3)"), "1 2 3 + *");

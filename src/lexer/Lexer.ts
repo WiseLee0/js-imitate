@@ -2,9 +2,10 @@ import Exception from "../utils/Exception";
 import PeekIterator from "../utils/PeekIterator";
 import RegularHelper from "../utils/RegularHelper";
 import Token, { TokenType } from "./Token";
-
+import fs from "fs";
+import GeneratorUtils from "../utils/GenerateUtils";
 export default class Lexer {
-  static run(sourceIt: Generator<string>) {
+  static parse(sourceIt: Generator<string>) {
     const END = "\0";
     const it = new PeekIterator(sourceIt, END);
     const tokens: Token[] = [];
@@ -84,5 +85,19 @@ export default class Lexer {
     }
 
     return tokens;
+  }
+
+  /**
+   *
+   * @param source 流 或者 文件路径
+   * @returns
+   */
+  static run(source: Generator<string> | string) {
+    if (typeof source === "string") {
+      const content = fs.readFileSync(source, "utf-8");
+      const it = GeneratorUtils.run(content);
+      return Lexer.parse(it);
+    }
+    return Lexer.parse(source);
   }
 }

@@ -9,6 +9,12 @@ export default class FunctionStmt extends Stmt {
   constructor() {
     super(ASTNodeType.FUNCTION_STMT, "function_stmt");
   }
+  getArgs() {
+    return this.getChildrenIdx(0);
+  }
+  getBlock() {
+    return this.getChildrenIdx(1);
+  }
   // function fn(...args) block
   static parse(it: TokenIterator) {
     const functionStmt = new FunctionStmt();

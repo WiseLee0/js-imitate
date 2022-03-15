@@ -1,16 +1,23 @@
 import { assert } from "chai";
+import path from "path";
 import Lexer from "../../lexer/Lexer";
-import { TokenType } from "../../lexer/Token";
+import Token, { TokenType } from "../../lexer/Token";
 import ExpressUtils from "../../utils/ExpressUtils";
 import GeneratorUtils from "../../utils/GenerateUtils";
 import { TokenIterator } from "../../utils/TokenIterator";
 import AssignStmt from "../ast/AssignStmt";
+import { ASTNodeType } from "../ast/ASTNode";
 import DeclareStmt from "../ast/DeclareStmt";
 import FunctionStmt from "../ast/FunctionStmt";
 import IfStmt from "../ast/IfStmt";
 
-function createToken(str: string) {
-  const tokens = Lexer.run(GeneratorUtils.run(str));
+function createToken(str: string, isPath = false) {
+  let tokens: Token[];
+  if (!isPath) {
+    tokens = Lexer.run(GeneratorUtils.run(str));
+  } else {
+    tokens = Lexer.run(str);
+  }
   const tokenIt = new TokenIterator(GeneratorUtils.run(tokens));
   return tokenIt;
 }
@@ -67,13 +74,8 @@ describe("Stmt", () => {
     );
   });
 
-  it("function", () => {
-    const it = createToken(`
-       function test(a, b) {
-          a = 2
-          return a + b
-       }
-    `);
+  it("function1", () => {
+    const it = createToken(path.resolve(__dirname, "./file/fun1.txt"), true);
     const stmt = FunctionStmt.parse(it);
 
     assert.equal(stmt.getLexeme()?.getValue(), "test");
@@ -88,5 +90,24 @@ describe("Stmt", () => {
       "a b +",
       ExpressUtils.toPostfix(block.getChildrenIdx(1).getChildrenIdx(0))
     );
+  });
+  it("function2", () => {
+    const it = createToken(path.resolve(__dirname, "./file/fun2.txt"), true);
+    const stmt = FunctionStmt.parse(it);
+
+    assert.equal(stmt.getLexeme()?.getValue(), "test");
+    assert.equal(stmt.getLexeme()?.getType(), TokenType.VARIABLE);
+    assert.equal(stmt.getType(), ASTNodeType.FUNCTION_STMT);
+    const args = stmt.getArgs();
+    assert.equal(args.getChildrenIdx(0).getLexeme()?.getValue(), "k");
+    const block = stmt.getBlock();
+    const ifStmt = block.getChildrenIdx(0);
+    const ifExpr = ifStmt.getChildrenIdx(0);
+    const ifBlockReturn = ifStmt.getChildrenIdx(1).getChildrenIdx(0);
+
+    assert.equal("k 0 ===", ExpressUtils.toPostfix(ifExpr));
+    assert.equal("return", ifBlockReturn.getLexeme()?.getValue());
+    assert.equal("1", ifBlockReturn.getChildrenIdx(0).getLexeme()?.getValue());
+    
   });
 });
