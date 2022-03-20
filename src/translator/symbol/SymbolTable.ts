@@ -8,7 +8,7 @@ export default class SymbolTable {
   protected parent?: SymbolTable;
   protected children: Symbol[] = [];
   protected links: SymbolTable[] = [];
-  protected level = 0; // 层级
+  protected parentLevel = 0; // 层级
   protected offset = 0; // variable offset
   protected tempIndex = 0; // 中间变量
 
@@ -38,6 +38,10 @@ export default class SymbolTable {
     if (symbol?.parentLevel !== undefined) {
       const cloneSymbol = symbol.clone();
       cloneSymbol.setParentLevel(level);
+      return cloneSymbol;
+    }
+    if (symbol) {
+      const cloneSymbol = symbol.clone();
       return cloneSymbol;
     }
     if (this.parent) {
@@ -82,7 +86,11 @@ export default class SymbolTable {
 
   addLink(symbolTable: SymbolTable) {
     symbolTable.parent = this;
+    symbolTable.parentLevel += 1;
     this.links?.push(symbolTable);
+  }
+  getLinks() {
+    return this.links;
   }
   getChildren() {
     return this.children;
@@ -96,7 +104,7 @@ export default class SymbolTable {
   getOffset() {
     return this.offset;
   }
-  getLevel() {
-    return this.level;
+  getParentLevel() {
+    return this.parentLevel;
   }
 }

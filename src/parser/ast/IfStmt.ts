@@ -48,5 +48,28 @@ export default class IfStmt extends Stmt {
     }
     return undefined;
   }
+
+  getJudgeExpr() {
+    return this.getChildrenIdx(0);
+  }
+
+  getIfStmt() {
+    return this.getChildrenIdx(1);
+  }
+
+  getElseStmt() {
+    const stmt = this.getChildrenIdx(2);
+    if (stmt instanceof BlockStmt) {
+      return stmt;
+    }
+    return undefined;
+  }
+  getElseIfStmt() {
+    const stmt = this.getChildrenIdx(2);
+    if (stmt instanceof IfStmt) {
+      return stmt;
+    }
+    return undefined;
+  }
 }
 module.exports = IfStmt;

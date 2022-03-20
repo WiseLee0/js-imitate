@@ -1,0 +1,6 @@
+function test(k){
+    if(k === 0) {
+       return 1
+    }
+   return test(k - 1) * k
+}

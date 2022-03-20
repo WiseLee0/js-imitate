@@ -15,7 +15,7 @@ export enum ASTNodeType {
   FUNCTION_STMT,
   DECLARE_STMT,
   FUNCTION_ARGS,
-  PROGRAM
+  PROGRAM,
 }
 
 export default class ASTNode {
@@ -24,6 +24,7 @@ export default class ASTNode {
   protected parent?: ASTNode;
   protected lexeme?: Token;
   protected describe?: string;
+  protected props: Record<string, unknown> = {};
 
   constructor(type?: ASTNode["type"], describe?: ASTNode["describe"]) {
     this.type = type;
@@ -59,5 +60,16 @@ export default class ASTNode {
   }
   getParent() {
     return this.parent;
+  }
+  isValueType() {
+    return (
+      this.type === ASTNodeType.VARIABLE || this.type === ASTNodeType.CALCULATE
+    );
+  }
+  setProp(key: string, value: unknown) {
+    this.props[key] = value;
+  }
+  getProp(key: string) {
+    return this.props[key];
   }
 }

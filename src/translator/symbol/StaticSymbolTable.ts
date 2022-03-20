@@ -1,6 +1,6 @@
 import CalculateSymbol from "./CalculateSymbol";
 
-export default class StaticSymbol {
+export default class StaticSymbolTable {
   private map = new Map<string, CalculateSymbol>();
   private offset = 0;
 
