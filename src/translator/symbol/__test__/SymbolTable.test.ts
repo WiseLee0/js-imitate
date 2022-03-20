@@ -8,7 +8,7 @@ describe("SymbolTable", () => {
     symbolTable.addLabelSymbol(new Token(TokenType.VARIABLE, "foo"), "L0");
     symbolTable.addTempVariableSymbol();
     symbolTable.addVariableSymbol(new Token(TokenType.VARIABLE, "foo"));
-    assert.equal(symbolTable.getOffset(), 2);
+    assert.equal(symbolTable.getOffset(), 1);
   });
   it("chain", () => {
     const symbolTable = new SymbolTable();
