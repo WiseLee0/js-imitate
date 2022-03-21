@@ -19,6 +19,14 @@ export default class StaticSymbolTable {
     }
   }
 
+  toString() {
+    let ans = "";
+    for (const value of this.getCalculate()) {
+      ans += `${value} `;
+    }
+    return ans.slice(0, -1);
+  }
+
   getCalculate() {
     return this.map.keys();
   }
