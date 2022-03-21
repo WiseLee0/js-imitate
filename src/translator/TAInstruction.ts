@@ -1,3 +1,4 @@
+import Symbol from "./symbol/Symbol";
 export enum TAInstructionType {
   ASSIGN,
   GOTO,
@@ -17,10 +18,10 @@ export default class TAInstruction {
   private arg2?: any;
   constructor(
     type: TAInstructionType,
-    result?: string,
+    result?: any,
     op?: string,
-    arg1?: string,
-    arg2?: string
+    arg1?: any,
+    arg2?: any
   ) {
     this.type = type;
     this.result = result;
@@ -29,29 +30,44 @@ export default class TAInstruction {
     this.arg2 = arg2;
   }
   toString() {
+    const result = this.getSymbolValue(this.result);
+    const op = this.getSymbolValue(this.op);
+    const arg1 = this.getSymbolValue(this.arg1);
+    const arg2 = this.getSymbolValue(this.arg2);
+
     switch (this.type) {
       case TAInstructionType.ASSIGN:
-        if (this.arg2) {
-          return `${this.result} = ${this.arg1} ${this.op} ${this.arg2}`;
+        if (arg2) {
+          return `${result} = ${arg1} ${op} ${arg2}`;
         } else {
-          return `${this.result} = ${this.arg1}`;
+          return `${result} = ${arg1}`;
         }
       case TAInstructionType.IF:
-        return `IF ${this.arg1} ELSE ${this.arg2}`;
+        return `IF ${arg1} ELSE ${arg2}`;
       case TAInstructionType.GOTO:
         return `GOTO ${this.arg1}`;
       case TAInstructionType.LABEL:
         return `${this.arg1}:`;
       case TAInstructionType.RETURN:
-        return `RETURN ${this.arg1}`;
+        return `RETURN ${arg1}`;
       case TAInstructionType.PARAM:
-        return `PARAM ${this.arg1} ${this.arg2}`;
+        return `PARAM ${arg1} ${arg2}`;
       case TAInstructionType.SP:
-        return `SP ${this.arg1}`;
+        return `SP ${arg1}`;
       case TAInstructionType.CALL:
-        return `CALL ${this.arg1}`;
+        return `CALL ${arg1}`;
     }
     throw new Error("Unknown opcode type:" + this.type);
+  }
+
+  getSymbolValue(symbol?: Symbol | string) {
+    if (typeof symbol === "string") {
+      return symbol;
+    }
+    if (symbol instanceof Symbol) {
+      return symbol?.getLexeme()?.getValue();
+    }
+    return undefined;
   }
 
   getResult() {

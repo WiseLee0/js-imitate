@@ -145,7 +145,6 @@ L0:`;
     const translator = new Translator();
     const program = translator.translate(astNode);
     const code = program.toString();
-
     const expected = `IF flag ELSE L0
 SP -1
 p1 = 1 + 2

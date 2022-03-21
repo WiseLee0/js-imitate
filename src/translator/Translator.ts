@@ -213,12 +213,7 @@ export default class Translator {
     const expr = ast.getChildrenIdx(1);
     const exprResult = this.translateExpr(program, expr, symbolTable);
     program.addInstruction(
-      new TAInstruction(
-        TAInstructionType.ASSIGN,
-        getSymbolValue(variable),
-        "=",
-        exprResult
-      )
+      new TAInstruction(TAInstructionType.ASSIGN, variable, "=", exprResult)
     );
   }
   /**
@@ -231,12 +226,12 @@ export default class Translator {
     if (node.getType() === ASTNodeType.VARIABLE) {
       const variable = symbolTable.addVariableSymbol(node.getLexeme()!);
       node.setProp("factor", variable);
-      return getSymbolValue(variable);
+      return variable;
     }
     if (node.getType() === ASTNodeType.CALCULATE) {
       const calculate = symbolTable.addCalculateSymbol(node.getLexeme()!);
       node.setProp("factor", calculate);
-      return getSymbolValue(calculate);
+      return calculate;
     }
     if (node.getType() === ASTNodeType.CALL_EXPR) {
       const argName = this.translateCallExpr(program, node, symbolTable);
@@ -252,10 +247,10 @@ export default class Translator {
       }
       const instruction = new TAInstruction(
         TAInstructionType.ASSIGN,
-        getSymbolValue(node.getProp("factor") as Symbol),
+        node.getProp("factor") as Symbol,
         node.getLexeme()!.getValue(),
-        getSymbolValue(node.getChildrenIdx(0).getProp("factor") as Symbol),
-        getSymbolValue(node.getChildrenIdx(1).getProp("factor") as Symbol)
+        node.getChildrenIdx(0).getProp("factor") as Symbol,
+        node.getChildrenIdx(1).getProp("factor") as Symbol
       );
       program.addInstruction(instruction);
       return instruction.getResult();
